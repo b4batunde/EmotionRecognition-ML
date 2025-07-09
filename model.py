@@ -2,12 +2,12 @@ import torch
 import torch.nn as nn
 
 class EmotionRecognition(nn.Module):
-    def __init__(self, num_classes=10, input_channels=1):
+    def __init__(self):
         super(EmotionRecognition, self).__init__()
 
         self.blockOne = nn.Sequential(
             nn.Conv2d(
-                in_channels=input_channels, 
+                in_channels=3, 
                 out_channels=16, 
                 kernel_size=3,
                 stride=1,
@@ -35,7 +35,7 @@ class EmotionRecognition(nn.Module):
 
         self.classifier = nn.Sequential(
             nn.Flatten(),
-            nn.Linear(in_features=16 * 12 * 12, out_features=num_classes)
+            nn.Linear(in_features=16 * 12 * 12, out_features=7)
         )
 
     def forward(self, tnsr : torch.Tensor) -> torch.Tensor:
